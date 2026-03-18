@@ -29,10 +29,7 @@ class _LiveScreenState extends State<LiveScreen> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.layers),
-              label: "catogory",
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.layers), label: "layout"),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: "settings",

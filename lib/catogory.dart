@@ -8,51 +8,113 @@ class Catogory extends StatefulWidget {
 }
 
 class _CatogoryState extends State<Catogory> {
-  double opacity = 1.0;
-
-  void _onTap() async {
-    setState(() => opacity = 0.5); // fade
-
-    await Future.delayed(const Duration(milliseconds: 150));
-
-    setState(() => opacity = 1.0); // back to normal
-  }
-
+  double _opacity = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      minimum: const EdgeInsets.symmetric(horizontal: 20),
+      minimum: EdgeInsets.symmetric(horizontal: 22),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
-
-          const Text("handy", style: TextStyle(fontSize: 32)),
-
-          const SizedBox(height: 20),
-
-          GestureDetector(
-            onTap: _onTap,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 150),
-              opacity: opacity,
-              child: Container(
-                height: 120,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(133, 49, 49, 1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Tap Me",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Text("handy", style: TextStyle(fontSize: 34)),
+          ),
+          SizedBox(height: 30),
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Card(
+                  color: Color.fromRGBO(242, 85, 85, _opacity),
+                  child: SizedBox(
+                    height: 150,
+                    child: Center(child: Text("Hall")),
                   ),
                 ),
               ),
-            ),
+              Expanded(
+                child: Card(
+                  color: Color.fromRGBO(242, 85, 85, _opacity),
+                  child: SizedBox(
+                    height: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [Text("Master"), Text("bedroom")],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            children: [
+              Expanded(
+                child: Card(
+                  color: Color.fromRGBO(242, 85, 85, _opacity),
+                  child: SizedBox(
+                    height: 150,
+                    child: Center(child: Text("Parking")),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: GestureDetector(
+                  onTap: () async {
+                    setState(() {
+                      _opacity = 0.4;
+                    });
+                    await Future.delayed(Duration(milliseconds: 300));
+                    setState(() {
+                      _opacity = 1;
+                    });
+                  },
+                  child: Card(
+                    color: Color.fromRGBO(242, 85, 85, _opacity),
+                    child: SizedBox(
+                      height: 150,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [Text("bedroom")],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TapCard extends StatefulWidget {
+  const TapCard({super.key});
+
+  @override
+  State<TapCard> createState() => _TapCardState();
+}
+
+class _TapCardState extends State<TapCard> {
+  double opacity = 1.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        setState(() => opacity = 0.5);
+        await Future.delayed(Duration(milliseconds: 150));
+        setState(() => opacity = 1.0);
+      },
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 150),
+        opacity: opacity,
+        child: Card(
+          child: SizedBox(height: 120, child: Center(child: Text("Tap Me"))),
+        ),
       ),
     );
   }
