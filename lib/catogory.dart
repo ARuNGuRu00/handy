@@ -53,15 +53,16 @@ class _TapCardState extends State<TapCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (details) {
+      onTapDown: (details) async {
         setState(() {
           _opacity = 0.5;
         });
-      },
-      onTapUp: (details) {
+        await Future.delayed(Duration(milliseconds: 300));
         setState(() {
           _opacity = 1;
         });
+      },
+      onTapUp: (details) {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -72,7 +73,7 @@ class _TapCardState extends State<TapCard> {
       child: Card(
         color: Color.fromRGBO(242, 85, 85, _opacity),
         child: SizedBox(
-          height: 150,
+          height: 120,
           child: Center(child: Text(widget.layoutName)),
         ),
       ),
