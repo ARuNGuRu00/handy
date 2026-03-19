@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handy/pages/switches.dart';
 
 class Catogory extends StatefulWidget {
   const Catogory({super.key});
@@ -8,7 +9,6 @@ class Catogory extends StatefulWidget {
 }
 
 class _CatogoryState extends State<Catogory> {
-  double _opacity = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,66 +23,15 @@ class _CatogoryState extends State<Catogory> {
           SizedBox(height: 30),
           Row(
             children: [
-              Expanded(
-                flex: 2,
-                child: Card(
-                  color: Color.fromRGBO(242, 85, 85, _opacity),
-                  child: SizedBox(
-                    height: 150,
-                    child: Center(child: Text("Hall")),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Card(
-                  color: Color.fromRGBO(242, 85, 85, _opacity),
-                  child: SizedBox(
-                    height: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [Text("Master"), Text("bedroom")],
-                    ),
-                  ),
-                ),
-              ),
+              Expanded(flex: 2, child: TapCard(layoutName: "Hall")),
+              Expanded(child: TapCard(layoutName: "Bedroom")),
             ],
           ),
 
           Row(
             children: [
-              Expanded(
-                child: Card(
-                  color: Color.fromRGBO(242, 85, 85, _opacity),
-                  child: SizedBox(
-                    height: 150,
-                    child: Center(child: Text("Parking")),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: GestureDetector(
-                  onTap: () async {
-                    setState(() {
-                      _opacity = 0.4;
-                    });
-                    await Future.delayed(Duration(milliseconds: 300));
-                    setState(() {
-                      _opacity = 1;
-                    });
-                  },
-                  child: Card(
-                    color: Color.fromRGBO(242, 85, 85, _opacity),
-                    child: SizedBox(
-                      height: 150,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text("bedroom")],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              Expanded(child: TapCard(layoutName: "Parking")),
+              Expanded(child: TapCard(layoutName: "balcani")),
             ],
           ),
         ],
@@ -92,28 +41,39 @@ class _CatogoryState extends State<Catogory> {
 }
 
 class TapCard extends StatefulWidget {
-  const TapCard({super.key});
+  final String layoutName;
+  const TapCard({super.key, required this.layoutName});
 
   @override
   State<TapCard> createState() => _TapCardState();
 }
 
 class _TapCardState extends State<TapCard> {
-  double opacity = 1.0;
-
+  double _opacity = 1.0;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        setState(() => opacity = 0.5);
-        await Future.delayed(Duration(milliseconds: 150));
-        setState(() => opacity = 1.0);
+      onTapDown: (details) {
+        setState(() {
+          _opacity = 0.5;
+        });
       },
-      child: AnimatedOpacity(
-        duration: Duration(milliseconds: 150),
-        opacity: opacity,
-        child: Card(
-          child: SizedBox(height: 120, child: Center(child: Text("Tap Me"))),
+      onTapUp: (details) {
+        setState(() {
+          _opacity = 1;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Switches(title: widget.layoutName),
+          ),
+        );
+      },
+      child: Card(
+        color: Color.fromRGBO(242, 85, 85, _opacity),
+        child: SizedBox(
+          height: 150,
+          child: Center(child: Text(widget.layoutName)),
         ),
       ),
     );
