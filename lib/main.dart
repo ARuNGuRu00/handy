@@ -19,6 +19,7 @@ class _LiveScreenState extends State<LiveScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: "Ubuntu"),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(

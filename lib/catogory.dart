@@ -18,7 +18,14 @@ class _CatogoryState extends State<Catogory> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 30),
-            child: Text("handy", style: TextStyle(fontSize: 34)),
+            child: Text(
+              "Handy",
+              style: TextStyle(
+                fontSize: 40,
+                fontFamily: "KaushanScript",
+                color: Color.fromRGBO(247, 64, 64, 1),
+              ),
+            ),
           ),
           SizedBox(height: 30),
           Row(
@@ -31,8 +38,11 @@ class _CatogoryState extends State<Catogory> {
           Row(
             children: [
               Expanded(child: TapCard(layoutName: "Parking")),
-              Expanded(child: TapCard(layoutName: "balcani")),
+              Expanded(child: TapCard(layoutName: "Balcani")),
             ],
+          ),
+          Row(
+            children: [Expanded(child: TapCard(layoutName: "OutDoor"))],
           ),
         ],
       ),
@@ -74,7 +84,12 @@ class _TapCardState extends State<TapCard> {
         color: Color.fromRGBO(242, 85, 85, _opacity),
         child: SizedBox(
           height: 120,
-          child: Center(child: Text(widget.layoutName)),
+          child: Center(
+            child: Text(
+              widget.layoutName,
+              style: TextStyle(fontFamily: "Ubuntu"),
+            ),
+          ),
         ),
       ),
     );

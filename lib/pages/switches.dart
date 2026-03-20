@@ -18,7 +18,7 @@ class Switches extends StatelessWidget {
           );
         },
         tooltip: 'Increment',
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        shape: CircleBorder(),
         elevation: 0,
         backgroundColor: Color.fromRGBO(250, 116, 116, 1),
         foregroundColor: Color.fromRGBO(159, 5, 5, 1),
