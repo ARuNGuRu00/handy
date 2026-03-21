@@ -27,12 +27,9 @@ class _CatogoryState extends State<Catogory> {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           Row(
-            children: [
-              Expanded(flex: 2, child: TapCard(layoutName: "Hall")),
-              Expanded(child: TapCard(layoutName: "Bedroom")),
-            ],
+            children: [Expanded(flex: 1, child: TapCard(layoutName: "Hall"))],
           ),
 
           Row(
@@ -42,7 +39,10 @@ class _CatogoryState extends State<Catogory> {
             ],
           ),
           Row(
-            children: [Expanded(child: TapCard(layoutName: "OutDoor"))],
+            children: [
+              Expanded(child: TapCard(layoutName: "OutDoor")),
+              Expanded(child: TapCard(layoutName: "Bedroom")),
+            ],
           ),
         ],
       ),
@@ -82,12 +82,13 @@ class _TapCardState extends State<TapCard> {
       },
       child: Card(
         color: Color.fromRGBO(242, 85, 85, _opacity),
+        elevation: 0,
         child: SizedBox(
           height: 120,
           child: Center(
             child: Text(
               widget.layoutName,
-              style: TextStyle(fontFamily: "Ubuntu"),
+              style: TextStyle(fontFamily: "Ubuntu", fontSize: 17),
             ),
           ),
         ),
