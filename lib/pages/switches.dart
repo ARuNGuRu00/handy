@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handy/pages/components/bluetooth.dart';
 import 'package:handy/pages/components/comp.dart';
 import 'package:handy/pages/soundPage.dart';
 
@@ -131,7 +130,6 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
       },
       onTapUp: (details) {
         print(widget.sdet);
-        bluetoothDevices();
       },
       // onTapUp: (details) {},
       child: Container(

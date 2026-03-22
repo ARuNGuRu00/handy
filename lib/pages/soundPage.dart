@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handy/pages/components/bluetooth.dart';
 
 class Soundpage extends StatelessWidget {
   const Soundpage({super.key});
@@ -7,7 +8,7 @@ class Soundpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(child: Text("double tap")),
+      body: Center(child: Text(listBluetooth().toString())),
     );
   }
 }

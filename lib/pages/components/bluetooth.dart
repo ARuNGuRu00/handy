@@ -49,3 +49,19 @@ void bluetoothDevices() async {
     print("Device not found or connection failed ❌");
   }
 }
+
+Future<Map<String, String>> listBluetooth() async {
+  FlutterBluetoothClassic bluetooth = FlutterBluetoothClassic();
+
+  bool isEnabled = await bluetooth.isBluetoothEnabled();
+  if (!isEnabled) {
+    print("Bluetooth is OFF ❌");
+  }
+
+  List<BluetoothDevice> devices = await bluetooth.getPairedDevices();
+  Map<String, String> connections = {};
+  for (var device in devices) {
+    connections[device.name] = device.address;
+  }
+  return connections;
+}
