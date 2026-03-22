@@ -1,50 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:handy/pages/components/bluetooth.dart';
 
-class Soundpage extends StatelessWidget {
+class Soundpage extends StatefulWidget {
   const Soundpage({super.key});
+
+  @override
+  State<Soundpage> createState() => _SoundpageState();
+}
+
+class _SoundpageState extends State<Soundpage> {
+  String data = "Paring Devices";
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> message() async {
+    String message = await pairedDevices();
+    setState(() {
+      data = message;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Bluetooth Devices")),
-      body: FutureBuilder<Map<String, String>>(
-        future: listBluetooth(),
-        builder: (context, snapshot) {
-          // 🔄 Loading
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          // ❌ Error
-          if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          }
-
-          // 📭 No data
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("No Devices Found"));
-          }
-
-          // ✅ Data available
-          final devices = snapshot.data!;
-
-          return ListView(
-            children: devices.entries.map((entry) {
-              var value = entry.value;
-              if (entry.key == "AC:67:B2:17:43:9E") {
-                connectDevice(entry.key, "hello");
-                value = "connceted";
-              }
-
-              return ListTile(
-                title: Text(entry.key), // Device Name
-                subtitle: Text(value), // MAC Address
-              );
-            }).toList(),
-          );
-        },
-      ),
+      body: Text(data),
     );
   }
 }

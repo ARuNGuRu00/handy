@@ -1,14 +1,7 @@
+import 'package:bluetooth_classic/bluetooth_classic.dart';
+import 'package:bluetooth_classic/models/device.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:io';
-import 'package:flutter_bluetooth_classic_serial/flutter_bluetooth_classic.dart';
-
-// Future<bool> checkBluetoothPermission() async {
-//   if (await Permission.bluetoothConnect.isGranted) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+import "dart:io";
 
 Future<void> requestBluetoothPermission() async {
   Map<Permission, PermissionStatus> statuses = await [
@@ -17,57 +10,31 @@ Future<void> requestBluetoothPermission() async {
     Permission.bluetoothConnect,
     // Permission.location, // Needed for scanning
   ].request();
-  statuses[Permission.bluetoothConnect]!.isGranted ? null : exit(0);
+
+  (statuses[Permission.bluetoothConnect]!.isGranted) ? null : exit(0);
 }
 
-void bluetoothDevices() async {
-  FlutterBluetoothClassic bluetooth = FlutterBluetoothClassic();
-
-  bool isEnabled = await bluetooth.isBluetoothEnabled();
-  if (!isEnabled) {
-    print("Bluetooth is OFF ❌");
-    return;
-  }
-
-  List<BluetoothDevice> devices = await bluetooth.getPairedDevices();
-
-  bool connected = false;
-
-  for (var device in devices) {
-    print("Device: ${device.name} - ${device.address}");
-
-    if (device.address == "AC:67:B2:17:43:9E") {
-      connected = await bluetooth.connect(device.address);
-      break; // stop loop after connecting
+Future<String> pairedDevices() async {
+  final bluetoothClassicPlugin = BluetoothClassic();
+  await bluetoothClassicPlugin.initPermissions();
+  List<Device> discoveredDevices = await bluetoothClassicPlugin
+      .getPairedDevices();
+  for (Device device in discoveredDevices) {
+    if (device.name == "board1") {
+      try {
+        await bluetoothClassicPlugin.connect(
+          device.address,
+          "00001101-0000-1000-8000-00805f9b34fb",
+        );
+        await bluetoothClassicPlugin.write("ping");
+        await bluetoothClassicPlugin.write("ping");
+        await bluetoothClassicPlugin.write("ping");
+        await bluetoothClassicPlugin.disconnect();
+        return "sent";
+      } catch (e) {
+        return e.toString();
+      }
     }
   }
-
-  if (connected) {
-    print("Connected ✅");
-    await bluetooth.sendString('Hello World!');
-  } else {
-    print("Device not found or connection failed ❌");
-  }
-}
-
-FlutterBluetoothClassic bluetooth = FlutterBluetoothClassic();
-
-Future<Map<String, String>> listBluetooth() async {
-  bool isEnabled = await bluetooth.isBluetoothEnabled();
-  if (!isEnabled) {
-    return {};
-  }
-
-  List<BluetoothDevice> devices = await bluetooth.getPairedDevices();
-  Map<String, String> connections = {};
-  for (var device in devices) {
-    connections[device.address] = device.name;
-  }
-  return connections;
-}
-
-void connectDevice(String address, String message) async {
-  await bluetooth.connect(address);
-  await bluetooth.sendString(message);
-  await bluetooth.disconnect();
+  return "not connected";
 }
