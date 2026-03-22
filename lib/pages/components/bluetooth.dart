@@ -50,9 +50,9 @@ void bluetoothDevices() async {
   }
 }
 
-Future<Map<String, String>> listBluetooth() async {
-  FlutterBluetoothClassic bluetooth = FlutterBluetoothClassic();
+FlutterBluetoothClassic bluetooth = FlutterBluetoothClassic();
 
+Future<Map<String, String>> listBluetooth() async {
   bool isEnabled = await bluetooth.isBluetoothEnabled();
   if (!isEnabled) {
     return {};
@@ -64,4 +64,10 @@ Future<Map<String, String>> listBluetooth() async {
     connections[device.address] = device.name;
   }
   return connections;
+}
+
+void connectDevice(String address, String message) async {
+  await bluetooth.connect(address);
+  await bluetooth.sendString(message);
+  await bluetooth.disconnect();
 }

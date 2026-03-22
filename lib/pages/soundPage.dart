@@ -31,6 +31,9 @@ class Soundpage extends StatelessWidget {
 
           return ListView(
             children: devices.entries.map((entry) {
+              if (entry.key == "AC:67:B2:17:43:9E") {
+                connectDevice(entry.key, "hello");
+              }
               return ListTile(
                 title: Text(entry.key), // Device Name
                 subtitle: Text(entry.value), // MAC Address
