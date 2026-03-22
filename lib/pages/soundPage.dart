@@ -13,6 +13,7 @@ class _SoundpageState extends State<Soundpage> {
   @override
   void initState() {
     super.initState();
+    message();
   }
 
   Future<void> message() async {
