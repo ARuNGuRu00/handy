@@ -31,12 +31,15 @@ class Soundpage extends StatelessWidget {
 
           return ListView(
             children: devices.entries.map((entry) {
+              var value = entry.value;
               if (entry.key == "AC:67:B2:17:43:9E") {
                 connectDevice(entry.key, "hello");
+                value = "connceted";
               }
+
               return ListTile(
                 title: Text(entry.key), // Device Name
-                subtitle: Text(entry.value), // MAC Address
+                subtitle: Text(value), // MAC Address
               );
             }).toList(),
           );
