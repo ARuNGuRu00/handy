@@ -41,7 +41,6 @@ class _SwitchesState extends State<Switches> {
             MaterialPageRoute(builder: (context) => Soundpage()),
           );
         },
-        tooltip: 'Increment',
         shape: CircleBorder(),
         elevation: 0,
         backgroundColor: Color.fromRGBO(250, 116, 116, 1),
@@ -94,7 +93,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
               ),
               itemCount: widget.count,
               itemBuilder: (context, index) {
-                return ActiveSwitch();
+                return ActiveSwitch(sdet: {widget.bName: index + 1});
               },
             ),
           ),
@@ -105,7 +104,8 @@ class _SwitchLayoutState extends State<SwitchLayout> {
 }
 
 class ActiveSwitch extends StatefulWidget {
-  const ActiveSwitch({super.key});
+  final Map<String, int> sdet;
+  const ActiveSwitch({super.key, required this.sdet});
 
   @override
   State<ActiveSwitch> createState() => _ActiveSwitchState();
@@ -127,6 +127,9 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
           bColor = const Color.fromARGB(255, 234, 233, 233);
           cbColor = Colors.grey;
         });
+      },
+      onTapUp: (details) {
+        print(widget.sdet);
       },
       // onTapUp: (details) {},
       child: Container(

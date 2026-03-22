@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handy/catogory.dart';
+import 'package:handy/pages/components/bluetooth.dart';
 import 'package:handy/settings.dart';
 
 void main() {
@@ -16,6 +17,12 @@ class LiveScreen extends StatefulWidget {
 class _LiveScreenState extends State<LiveScreen> {
   final List<Widget> _pages = [Catogory(), Settings()];
   var _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    requestBluetoothPermission();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
