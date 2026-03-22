@@ -27,8 +27,6 @@ Future<String> pairedDevices() async {
           "00001101-0000-1000-8000-00805f9b34fb",
         );
         await bluetoothClassicPlugin.write("ping");
-        await bluetoothClassicPlugin.write("ping");
-        await bluetoothClassicPlugin.write("ping");
         await bluetoothClassicPlugin.disconnect();
         return "sent";
       } catch (e) {
