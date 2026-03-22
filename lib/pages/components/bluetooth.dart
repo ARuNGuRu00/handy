@@ -55,13 +55,13 @@ Future<Map<String, String>> listBluetooth() async {
 
   bool isEnabled = await bluetooth.isBluetoothEnabled();
   if (!isEnabled) {
-    print("Bluetooth is OFF ❌");
+    return {};
   }
 
   List<BluetoothDevice> devices = await bluetooth.getPairedDevices();
   Map<String, String> connections = {};
   for (var device in devices) {
-    connections[device.name] = device.address;
+    connections[device.address] = device.name;
   }
   return connections;
 }
