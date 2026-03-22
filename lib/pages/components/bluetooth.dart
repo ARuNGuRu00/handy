@@ -26,6 +26,7 @@ Future<String> pairedDevices() async {
           device.address,
           "00001101-0000-1000-8000-00805f9b34fb",
         );
+        await Future.delayed(Duration(milliseconds: 1000));
         await bluetoothClassicPlugin.write("ping");
         await bluetoothClassicPlugin.disconnect();
         return "sent";
