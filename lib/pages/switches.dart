@@ -34,8 +34,14 @@ class _SwitchesState extends State<Switches> {
 
   @override
   void dispose() {
+    // Safely disconnect Bluetooth
+    try {
+      bluetoothClassicPlugin.disconnect();
+    } catch (e) {
+      null;
+    }
+
     super.dispose();
-    bluetoothClassicPlugin.disconnect();
   }
 
   @override
