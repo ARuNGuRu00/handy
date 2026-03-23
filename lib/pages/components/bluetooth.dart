@@ -14,8 +14,9 @@ Future<void> requestBluetoothPermission() async {
   (statuses[Permission.bluetoothConnect]!.isGranted) ? null : exit(0);
 }
 
+final bluetoothClassicPlugin = BluetoothClassic();
+
 Future<String> pairedDevices() async {
-  final bluetoothClassicPlugin = BluetoothClassic();
   await bluetoothClassicPlugin.initPermissions();
   List<Device> discoveredDevices = await bluetoothClassicPlugin
       .getPairedDevices();
@@ -36,4 +37,28 @@ Future<String> pairedDevices() async {
     }
   }
   return "not connected";
+}
+
+Future<String> connectDevices() async {
+  await bluetoothClassicPlugin.initPermissions();
+  List<Device> discoveredDevices = await bluetoothClassicPlugin
+      .getPairedDevices();
+  for (Device device in discoveredDevices) {
+    if (device.name == "board1") {
+      try {
+        await bluetoothClassicPlugin.connect(
+          device.address,
+          "00001101-0000-1000-8000-00805f9b34fb",
+        );
+        return "conncted";
+      } catch (e) {
+        return e.toString();
+      }
+    }
+  }
+  return "prob";
+}
+
+void butTransfer(String message) {
+  bluetoothClassicPlugin.write(message);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handy/pages/components/bluetooth.dart';
 import 'package:handy/pages/components/comp.dart';
 import 'package:handy/pages/soundPage.dart';
 
@@ -18,7 +19,14 @@ class _SwitchesState extends State<Switches> {
     super.initState();
     det = CompD().layout[widget.title.toLowerCase()];
     entries = det?.entries.toList();
+    connectDevices();
     // print(entries?.elementAt(0));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bluetoothClassicPlugin.disconnect();
   }
 
   @override
@@ -130,6 +138,7 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
       },
       onTapUp: (details) {
         print(widget.sdet);
+        butTransfer(widget.sdet.toString());
       },
       // onTapUp: (details) {},
       child: Container(
