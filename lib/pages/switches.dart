@@ -116,7 +116,8 @@ class _SwitchLayoutState extends State<SwitchLayout> {
               ),
               itemCount: widget.count,
               itemBuilder: (context, index) {
-                return ActiveSwitch(sdet: {widget.bName: index + 1});
+                // return ActiveSwitch(sdet: {widget.bName: index + 1});
+                return ActiveSwitch(swint: index);
               },
             ),
           ),
@@ -127,8 +128,9 @@ class _SwitchLayoutState extends State<SwitchLayout> {
 }
 
 class ActiveSwitch extends StatefulWidget {
-  final Map<String, int> sdet;
-  const ActiveSwitch({super.key, required this.sdet});
+  // final Map<String, int> sdet;
+  final int swint;
+  const ActiveSwitch({super.key, required this.swint});
 
   @override
   State<ActiveSwitch> createState() => _ActiveSwitchState();
@@ -152,8 +154,9 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
         });
       },
       onTapUp: (details) {
-        print(widget.sdet);
-        butTransfer(widget.sdet.toString());
+        // print(widget.sdet);
+        // butTransfer(widget.sdet.toString());
+        butTransfer(widget.swint.toString());
       },
       // onTapUp: (details) {},
       child: Container(
