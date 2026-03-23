@@ -14,7 +14,7 @@ class Switches extends StatefulWidget {
 class _SwitchesState extends State<Switches> {
   late final Map<dynamic, dynamic>? det;
   late final List? entries;
-  late String message;
+  late String mess;
   @override
   void initState() {
     super.initState();
@@ -28,7 +28,7 @@ class _SwitchesState extends State<Switches> {
     final messageTemp = await connectDevices();
 
     setState(() {
-      message = messageTemp;
+      mess = messageTemp;
     });
   }
 
@@ -41,7 +41,7 @@ class _SwitchesState extends State<Switches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(message)),
+      appBar: AppBar(title: Text(mess)),
       body: SafeArea(
         child: ListView.builder(
           itemCount: entries?.length,

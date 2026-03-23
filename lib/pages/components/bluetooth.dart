@@ -16,28 +16,28 @@ Future<void> requestBluetoothPermission() async {
 
 final bluetoothClassicPlugin = BluetoothClassic();
 
-Future<String> pairedDevices() async {
-  await bluetoothClassicPlugin.initPermissions();
-  List<Device> discoveredDevices = await bluetoothClassicPlugin
-      .getPairedDevices();
-  for (Device device in discoveredDevices) {
-    if (device.name == "board1") {
-      try {
-        await bluetoothClassicPlugin.connect(
-          device.address,
-          "00001101-0000-1000-8000-00805f9b34fb",
-        );
-        await Future.delayed(Duration(milliseconds: 1000));
-        await bluetoothClassicPlugin.write("ping");
-        await bluetoothClassicPlugin.disconnect();
-        return "sent";
-      } catch (e) {
-        return e.toString();
-      }
-    }
-  }
-  return "not connected";
-}
+// Future<String> pairedDevices() async {
+//   await bluetoothClassicPlugin.initPermissions();
+//   List<Device> discoveredDevices = await bluetoothClassicPlugin
+//       .getPairedDevices();
+//   for (Device device in discoveredDevices) {
+//     if (device.name == "board1") {
+//       try {
+//         await bluetoothClassicPlugin.connect(
+//           device.address,
+//           "00001101-0000-1000-8000-00805f9b34fb",
+//         );
+//         await Future.delayed(Duration(milliseconds: 1000));
+//         await bluetoothClassicPlugin.write("ping");
+//         await bluetoothClassicPlugin.disconnect();
+//         return "sent";
+//       } catch (e) {
+//         return e.toString();
+//       }
+//     }
+//   }
+//   return "not connected";
+// }
 
 Future<String> connectDevices() async {
   await bluetoothClassicPlugin.initPermissions();

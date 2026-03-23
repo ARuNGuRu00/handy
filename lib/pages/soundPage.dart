@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handy/pages/components/bluetooth.dart';
+// import 'package:handy/pages/components/bluetooth.dart';
 
 class Soundpage extends StatefulWidget {
   const Soundpage({super.key});
@@ -17,7 +17,7 @@ class _SoundpageState extends State<Soundpage> {
   }
 
   Future<void> message() async {
-    String message = await pairedDevices();
+    String message = "hello";
     setState(() {
       data = message;
     });
