@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handy/pages/components/activeButton.dart';
 import 'package:handy/pages/components/bluetooth.dart';
 import 'package:handy/pages/components/comp.dart';
 import 'package:handy/pages/soundPage.dart';
@@ -14,23 +15,23 @@ class Switches extends StatefulWidget {
 class _SwitchesState extends State<Switches> {
   late final Map<dynamic, dynamic>? det;
   late final List? entries;
-  late String mess;
+  // late String mess;
   @override
   void initState() {
     super.initState();
     det = CompD().layout[widget.title.toLowerCase()];
     entries = det?.entries.toList();
     // print(entries?.elementAt(0));
-    messageCall();
+    // messageCall();
   }
 
-  void messageCall() async {
-    final messageTemp = await connectDevices();
+  // void messageCall() async {
+  //   final messageTemp = await connectDevices();
 
-    setState(() {
-      mess = messageTemp;
-    });
-  }
+  //   setState(() {
+  //     mess = messageTemp;
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -47,13 +48,17 @@ class _SwitchesState extends State<Switches> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(mess)),
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit_square))],
+      ),
       body: SafeArea(
         child: ListView.builder(
           itemCount: entries?.length,
           itemBuilder: (context, index) => SwitchLayout(
             bName: entries?.elementAt(index).key,
             count: entries?.elementAt(index).value,
+            bCount: index + 1,
           ),
         ),
       ),
@@ -66,8 +71,8 @@ class _SwitchesState extends State<Switches> {
         },
         shape: CircleBorder(),
         elevation: 0,
-        backgroundColor: Color.fromRGBO(250, 116, 116, 1),
-        foregroundColor: Color.fromRGBO(159, 5, 5, 1),
+        // backgroundColor: Color.fromRGBO(250, 116, 116, 1),
+        // foregroundColor: Color.fromRGBO(159, 5, 5, 1),
         child: const Icon(Icons.music_note),
       ),
     );
@@ -77,7 +82,13 @@ class _SwitchesState extends State<Switches> {
 class SwitchLayout extends StatefulWidget {
   final int count;
   final String bName;
-  const SwitchLayout({super.key, required this.bName, required this.count});
+  final int bCount;
+  const SwitchLayout({
+    super.key,
+    required this.bName,
+    required this.count,
+    required this.bCount,
+  });
 
   @override
   State<SwitchLayout> createState() => _SwitchLayoutState();
@@ -107,7 +118,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                 left: 8,
               ),
               child: Text(
-                widget.bName,
+                'Board ${widget.bCount}',
                 style: TextStyle(
                   color: const Color.fromARGB(255, 150, 149, 149),
                 ),
@@ -129,60 +140,6 @@ class _SwitchLayoutState extends State<SwitchLayout> {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ActiveSwitch extends StatefulWidget {
-  // final Map<String, int> sdet;
-  final int swint;
-  const ActiveSwitch({super.key, required this.swint});
-
-  @override
-  State<ActiveSwitch> createState() => _ActiveSwitchState();
-}
-
-class _ActiveSwitchState extends State<ActiveSwitch> {
-  Color bColor = const Color.fromARGB(255, 234, 233, 233);
-  Color cbColor = Colors.grey;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (details) async {
-        setState(() {
-          bColor = const Color.fromARGB(255, 214, 78, 78);
-          cbColor = const Color.fromARGB(255, 255, 255, 255);
-        });
-        await Future.delayed(Duration(milliseconds: 300));
-        setState(() {
-          bColor = const Color.fromARGB(255, 234, 233, 233);
-          cbColor = Colors.grey;
-        });
-      },
-      onTapUp: (details) {
-        // print(widget.sdet);
-        // butTransfer(widget.sdet.toString());
-        butTransfer(widget.swint.toString());
-      },
-      // onTapUp: (details) {},
-      child: Container(
-        decoration: BoxDecoration(
-          // color: isOn ? Colors.red.shade300 : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10),
-          color: bColor,
-          border: Border.all(color: Colors.grey.shade400),
-        ),
-        child: Center(
-          child: Container(
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: cbColor),
-            ),
-          ),
         ),
       ),
     );

@@ -1,6 +1,6 @@
 class CompD {
   Map<String, Map> layout = {
-    "hall": {"board 1": 8, "board 2": 12, "board 3": 6},
+    "hall": {"Hb1": 8, "Hb2": 12, "Hb3": 6},
     "bedroom": {"board 1": 6, "board 2": 6, "board 3": 6},
     "outdoor": {"board 1": 8, "board 2": 12},
     "balcani": {"board 1": 2},

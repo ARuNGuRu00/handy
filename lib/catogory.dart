@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handy/pages/components/bluetooth.dart';
 import 'package:handy/pages/switches.dart';
 
 class Catogory extends StatefulWidget {
@@ -9,8 +10,83 @@ class Catogory extends StatefulWidget {
 }
 
 class _CatogoryState extends State<Catogory> {
+  bool? blueCode;
+  @override
+  void initState() {
+    super.initState();
+    blueCheck();
+  }
+
+  void blueCheck() async {
+    final code = await isBluetoothEnabled();
+    setState(() {
+      blueCode = code;
+      blueCode = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (blueCode == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+    if (blueCode == false) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // 🔵 Icon
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 243, 33, 33).withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.bluetooth_disabled,
+                size: 60,
+                color: const Color.fromARGB(255, 255, 68, 68),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // 📝 Title
+            Text(
+              "Bluetooth is OFF",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(height: 8),
+
+            // 🧾 Subtitle
+            Text(
+              "Enable your Bluetooth to continue",
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+
+            SizedBox(height: 30),
+
+            // 🔘 Button
+            SizedBox(
+              width: 180,
+              height: 45,
+              child: ElevatedButton.icon(
+                onPressed: blueCheck,
+                icon: Icon(Icons.refresh),
+                label: Text("Refresh"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 255, 68, 68),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return SafeArea(
       minimum: EdgeInsets.symmetric(horizontal: 22),
       child: Column(
