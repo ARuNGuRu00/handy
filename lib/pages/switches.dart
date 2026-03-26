@@ -22,6 +22,7 @@ class _SwitchesState extends State<Switches> {
     det = CompD().layout[widget.title.toLowerCase()];
     entries = det?.entries.toList();
     // print(entries?.elementAt(0));
+    pairedDevice();
     // messageCall();
   }
 
@@ -50,7 +51,7 @@ class _SwitchesState extends State<Switches> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit_square))],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit))],
       ),
       body: SafeArea(
         child: ListView.builder(
@@ -89,6 +90,7 @@ class SwitchLayout extends StatefulWidget {
   final String bName;
   final int bCount;
   final List other;
+
   const SwitchLayout({
     super.key,
     required this.bName,
@@ -104,75 +106,120 @@ class SwitchLayout extends StatefulWidget {
 class _SwitchLayoutState extends State<SwitchLayout> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(26, 183, 182, 182),
-          borderRadius: BorderRadius.circular(8),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            // vertical: 10.0,
+            // horizontal: 20,
+            top: 10,
+            bottom: 3,
+            left: 15,
+          ),
+          child: Text(
+            'Board ${widget.bCount}',
+            style: TextStyle(color: const Color.fromARGB(255, 150, 149, 149)),
+          ),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                // vertical: 10.0,
-                // horizontal: 20,
-                bottom: 18,
-                top: 5,
-                left: 8,
-              ),
-              child: Text(
-                'Board ${widget.bCount}',
-                style: TextStyle(
-                  color: const Color.fromARGB(255, 150, 149, 149),
+            SizedBox(
+              width: double.infinity,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(26, 183, 182, 182),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 20,
+                ),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 6,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 9,
+                    childAspectRatio: 0.6,
+                  ),
+                  itemCount: widget.count,
+                  itemBuilder: (context, index) {
+                    bool isEndOfPair = (index + 1) % 2 == 0;
+                    // return ActiveSwitch(sdet: {widget.bName: index + 1});
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        right: isEndOfPair ? 2.5 : 0,
+                        left: !isEndOfPair ? 2.5 : 0,
+                      ),
+                      child:
+                          (widget.other.isNotEmpty &&
+                              (widget.other[1].contains(index + 1)))
+                          ? Opacity(
+                              opacity: 0.5,
+                              child: IgnorePointer(
+                                child: ActiveSwitch(
+                                  swint: index,
+                                  state: 1,
+                                  bAddress: pairedDeviceDet[widget.bName]!,
+                                ),
+                              ),
+                            )
+                          : (widget.other.isNotEmpty &&
+                                (widget.other[2].contains(index + 1)))
+                          ? Opacity(
+                              opacity: 0.5,
+                              child: IgnorePointer(
+                                child: ActiveSwitch(
+                                  swint: index,
+                                  state: 2,
+                                  bAddress: pairedDeviceDet[widget.bName]!,
+                                ),
+                              ),
+                            )
+                          : ActiveSwitch(
+                              swint: index,
+                              state: 0,
+                              bAddress: pairedDeviceDet[widget.bName]!,
+                            ),
+                    );
+                  },
                 ),
               ),
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 9,
-                childAspectRatio: 0.6,
-              ),
-              itemCount: widget.count,
-              itemBuilder: (context, index) {
-                bool isEndOfPair = (index + 1) % 2 == 0;
-                // return ActiveSwitch(sdet: {widget.bName: index + 1});
-                return Padding(
-                  padding: EdgeInsets.only(
-                    right: isEndOfPair ? 2.5 : 0,
-                    left: !isEndOfPair ? 2.5 : 0,
+            if (pairedDeviceDet.containsKey(widget.bName))
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(169, 163, 162, 162),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child:
-                      (widget.other.isNotEmpty &&
-                          (widget.other[1].contains(index + 1)))
-                      ? Opacity(
-                          opacity: 0.5,
-                          child: IgnorePointer(
-                            child: ActiveSwitch(swint: index, state: 1),
-                          ),
-                        )
-                      : (widget.other.isNotEmpty &&
-                            (widget.other[2].contains(index + 1)))
-                      ? Opacity(
-                          opacity: 0.5,
-                          child: IgnorePointer(
-                            child: ActiveSwitch(swint: index, state: 2),
-                          ),
-                        )
-                      : ActiveSwitch(swint: index, state: 0),
-                );
-              },
-            ),
+                  margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.bluetooth_disabled),
+                          Text("Board is offLine"),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        iconSize: 30,
+                        icon: Icon(Icons.refresh),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

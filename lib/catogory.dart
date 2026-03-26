@@ -21,7 +21,6 @@ class _CatogoryState extends State<Catogory> {
     final code = await isBluetoothEnabled();
     setState(() {
       blueCode = code;
-      blueCode = true;
     });
   }
 
@@ -33,53 +32,24 @@ class _CatogoryState extends State<Catogory> {
     if (blueCode == false) {
       return Center(
         child: Column(
+          spacing: 8,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // 🔵 Icon
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 243, 33, 33).withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.bluetooth_disabled,
-                size: 60,
-                color: const Color.fromARGB(255, 255, 68, 68),
-              ),
+            Icon(
+              Icons.bluetooth_disabled,
+              size: 54,
+              color: const Color.fromARGB(255, 228, 97, 88),
             ),
-
-            SizedBox(height: 20),
-
-            // 📝 Title
-            Text(
-              "Bluetooth is OFF",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-
-            SizedBox(height: 8),
-
-            // 🧾 Subtitle
-            Text(
-              "Enable your Bluetooth to continue",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-
-            SizedBox(height: 30),
-
-            // 🔘 Button
-            SizedBox(
-              width: 180,
-              height: 45,
-              child: ElevatedButton.icon(
-                onPressed: blueCheck,
-                icon: Icon(Icons.refresh),
-                label: Text("Refresh"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 255, 68, 68),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+            Text("Turn on your Bluetooth"),
+            ElevatedButton.icon(
+              onPressed: blueCheck,
+              icon: Icon(Icons.refresh),
+              label: Text("Refresh"),
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
                 ),
               ),
             ),

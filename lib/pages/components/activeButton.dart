@@ -5,7 +5,13 @@ class ActiveSwitch extends StatefulWidget {
   // final Map<String, int> sdet;
   final int swint;
   final int state;
-  const ActiveSwitch({super.key, required this.swint, required this.state});
+  final String bAddress;
+  const ActiveSwitch({
+    super.key,
+    required this.swint,
+    required this.state,
+    required this.bAddress,
+  });
 
   @override
   State<ActiveSwitch> createState() => _ActiveSwitchState();
@@ -14,6 +20,13 @@ class ActiveSwitch extends StatefulWidget {
 class _ActiveSwitchState extends State<ActiveSwitch> {
   Color bColor = const Color.fromARGB(255, 234, 233, 233);
   Color cbColor = Colors.grey;
+  void connectMethod(message) async {
+    bool connection = await connectDevices(widget.bAddress);
+    if (connection) {
+      butTransfer(message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,8 +44,10 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
       onTapUp: (details) {
         // print(widget.sdet);
         // butTransfer(widget.sdet.toString());
-        butTransfer(widget.swint.toString());
+        connectMethod(widget.swint.toString());
+        // butTransfer(widget.swint.toString());
       },
+
       // onTapUp: (details) {},
       child: Container(
         decoration: BoxDecoration(

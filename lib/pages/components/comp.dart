@@ -73,3 +73,14 @@ class CompD {
 //   // }
 //   k?.forEach((k, v) => print('$k: $v'));
 // }
+
+// if (index % 2 == 0) {
+//   return Row(
+//     children: [
+//       Expanded(child: ActiveSwitch(swint: index)),
+//       SizedBox(width: 10),
+//       Expanded(child: ActiveSwitch(swint: index + 1)),
+//     ],
+//   );
+// }
+// return SizedBox(); // skip next index
