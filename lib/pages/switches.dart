@@ -163,7 +163,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                                 child: ActiveSwitch(
                                   swint: index,
                                   state: 1,
-                                  bAddress: pairedDeviceDet[widget.bName]!,
+                                  bAddress: pairedDeviceDet[widget.bName],
                                 ),
                               ),
                             )
@@ -175,14 +175,14 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                                 child: ActiveSwitch(
                                   swint: index,
                                   state: 2,
-                                  bAddress: pairedDeviceDet[widget.bName]!,
+                                  bAddress: pairedDeviceDet[widget.bName],
                                 ),
                               ),
                             )
                           : ActiveSwitch(
                               swint: index,
                               state: 0,
-                              bAddress: pairedDeviceDet[widget.bName]!,
+                              bAddress: pairedDeviceDet[widget.bName],
                             ),
                     );
                   },

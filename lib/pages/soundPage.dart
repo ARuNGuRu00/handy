@@ -49,8 +49,7 @@ class _SoundpageState extends State<Soundpage> {
           ),
         ],
       ),
-      bottomNavigationBar: // 👇 here
-      Padding(
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: SizedBox(
           width: double.infinity,

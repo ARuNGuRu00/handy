@@ -5,7 +5,7 @@ class ActiveSwitch extends StatefulWidget {
   // final Map<String, int> sdet;
   final int swint;
   final int state;
-  final String bAddress;
+  final String? bAddress;
   const ActiveSwitch({
     super.key,
     required this.swint,
@@ -20,8 +20,8 @@ class ActiveSwitch extends StatefulWidget {
 class _ActiveSwitchState extends State<ActiveSwitch> {
   Color bColor = const Color.fromARGB(255, 234, 233, 233);
   Color cbColor = Colors.grey;
-  void connectMethod(message) async {
-    bool connection = await connectDevices(widget.bAddress);
+  void connectMethod(String message) async {
+    bool connection = await connectDevices(widget.bAddress!);
     if (connection) {
       butTransfer(message);
     }
