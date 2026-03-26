@@ -21,7 +21,7 @@ class _CatogoryState extends State<Catogory> {
     final code = await isBluetoothEnabled();
     setState(() {
       blueCode = code;
-      blueCode = true;
+      // blueCode = true;
     });
   }
 
