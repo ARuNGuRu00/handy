@@ -21,7 +21,7 @@ class _CatogoryState extends State<Catogory> {
     final code = await isBluetoothEnabled();
     setState(() {
       blueCode = code;
-      // blueCode = true;
+      blueCode = true;
     });
   }
 
@@ -88,7 +88,7 @@ class _CatogoryState extends State<Catogory> {
       );
     }
     return SafeArea(
-      minimum: EdgeInsets.symmetric(horizontal: 22),
+      minimum: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -99,26 +99,26 @@ class _CatogoryState extends State<Catogory> {
               style: TextStyle(
                 fontSize: 40,
                 fontFamily: "KaushanScript",
-                color: Color.fromRGBO(247, 64, 64, 1),
+                color: Color.fromRGBO(245, 81, 81, 1),
               ),
             ),
           ),
           SizedBox(height: 20),
           Row(
-            children: [Expanded(flex: 1, child: TapCard(layoutName: "Hall"))],
+            children: [
+              Expanded(flex: 2, child: TapCard(layoutName: "Living Room")),
+              Expanded(child: TapCard(layoutName: "Parking")),
+            ],
           ),
 
           Row(
             children: [
-              Expanded(child: TapCard(layoutName: "Parking")),
-              Expanded(child: TapCard(layoutName: "Balcani")),
+              Expanded(child: TapCard(layoutName: "Bedroom")),
+              Expanded(child: TapCard(layoutName: "Store Room")),
             ],
           ),
           Row(
-            children: [
-              Expanded(child: TapCard(layoutName: "OutDoor")),
-              Expanded(child: TapCard(layoutName: "Bedroom")),
-            ],
+            children: [Expanded(child: TapCard(layoutName: "OutDoor"))],
           ),
         ],
       ),
@@ -138,6 +138,8 @@ class _TapCardState extends State<TapCard> {
   double _opacity = 1.0;
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTapDown: (details) async {
         setState(() {
@@ -157,14 +159,14 @@ class _TapCardState extends State<TapCard> {
         );
       },
       child: Card(
-        color: Color.fromRGBO(242, 85, 85, _opacity),
+        color: Color.fromRGBO(219, 104, 104, _opacity),
         elevation: 0,
         child: SizedBox(
-          height: 120,
+          height: (width / 2) - 36,
           child: Center(
             child: Text(
               widget.layoutName,
-              style: TextStyle(fontFamily: "Ubuntu", fontSize: 17),
+              style: TextStyle(fontFamily: "Ubuntu", fontSize: 18),
             ),
           ),
         ),

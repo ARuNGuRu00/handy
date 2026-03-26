@@ -57,7 +57,12 @@ class _SwitchesState extends State<Switches> {
           itemCount: entries?.length,
           itemBuilder: (context, index) => SwitchLayout(
             bName: entries?.elementAt(index).key,
-            count: entries?.elementAt(index).value,
+            count: (entries?.elementAt(index).value is List)
+                ? entries?.elementAt(index).value[0]
+                : entries?.elementAt(index).value,
+            other: (entries?.elementAt(index).value is List)
+                ? entries?.elementAt(index).value
+                : [],
             bCount: index + 1,
           ),
         ),
@@ -83,11 +88,13 @@ class SwitchLayout extends StatefulWidget {
   final int count;
   final String bName;
   final int bCount;
+  final List other;
   const SwitchLayout({
     super.key,
     required this.bName,
     required this.count,
     required this.bCount,
+    required this.other,
   });
 
   @override
@@ -102,7 +109,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
       child: Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(26, 183, 182, 182),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
         ),
         margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
@@ -130,13 +137,37 @@ class _SwitchLayoutState extends State<SwitchLayout> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 6,
                 mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
+                crossAxisSpacing: 9,
                 childAspectRatio: 0.6,
               ),
               itemCount: widget.count,
               itemBuilder: (context, index) {
+                bool isEndOfPair = (index + 1) % 2 == 0;
                 // return ActiveSwitch(sdet: {widget.bName: index + 1});
-                return ActiveSwitch(swint: index);
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: isEndOfPair ? 2.5 : 0,
+                    left: !isEndOfPair ? 2.5 : 0,
+                  ),
+                  child:
+                      (widget.other.isNotEmpty &&
+                          (widget.other[1].contains(index + 1)))
+                      ? Opacity(
+                          opacity: 0.5,
+                          child: IgnorePointer(
+                            child: ActiveSwitch(swint: index, state: 1),
+                          ),
+                        )
+                      : (widget.other.isNotEmpty &&
+                            (widget.other[2].contains(index + 1)))
+                      ? Opacity(
+                          opacity: 0.5,
+                          child: IgnorePointer(
+                            child: ActiveSwitch(swint: index, state: 2),
+                          ),
+                        )
+                      : ActiveSwitch(swint: index, state: 0),
+                );
               },
             ),
           ],

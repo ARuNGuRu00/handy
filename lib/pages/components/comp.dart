@@ -1,10 +1,68 @@
 class CompD {
   Map<String, Map> layout = {
-    "hall": {"Hb1": 8, "Hb2": 12, "Hb3": 6},
-    "bedroom": {"board 1": 6, "board 2": 6, "board 3": 6},
-    "outdoor": {"board 1": 8, "board 2": 12},
-    "balcani": {"board 1": 2},
-    "parking": {"board 1": 6, "board 2": 6},
+    "living room": {
+      "Hb1": [
+        8,
+        [4],
+        [],
+      ],
+      "Hb2": [
+        12,
+        [8],
+        [11, 12],
+      ],
+      "Hb3": 6,
+    },
+    "bedroom": {
+      "board 1": [
+        6,
+        [2],
+        [5, 6],
+      ],
+      "board 2": [
+        6,
+        [],
+        [3, 4],
+      ],
+      "board 3": [
+        6,
+        [2],
+        [],
+      ],
+    },
+    "store room": {
+      "Sr1": 8,
+      "Sr2": [
+        6,
+        [],
+        [3, 4],
+      ],
+      "Sr3": [
+        6,
+        [2],
+        [5, 6],
+      ],
+    },
+    "outdoor": {
+      "board 1": 8,
+      "board 2": [
+        12,
+        [7],
+        [3, 4],
+      ],
+    },
+    "parking": {
+      "board 1": [
+        6,
+        [3],
+        [5, 6],
+      ],
+      "board 2": [
+        6,
+        [],
+        [1, 2, 3, 4],
+      ],
+    },
   };
 }
 
