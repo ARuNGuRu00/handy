@@ -88,24 +88,32 @@ class _SwitchLayoutState extends State<SwitchLayout> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-            child: Text(
-              widget.bName,
-              style: TextStyle(color: const Color.fromARGB(255, 150, 149, 149)),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(26, 183, 182, 182),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                // vertical: 10.0,
+                // horizontal: 20,
+                bottom: 18,
+                top: 5,
+                left: 8,
+              ),
+              child: Text(
+                widget.bName,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 150, 149, 149),
+                ),
+              ),
             ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(26, 183, 182, 182),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            margin: EdgeInsets.all(8.0),
-            padding: const EdgeInsets.all(14),
-            child: GridView.builder(
+            GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -120,8 +128,8 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                 return ActiveSwitch(swint: index);
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -162,14 +170,14 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
       child: Container(
         decoration: BoxDecoration(
           // color: isOn ? Colors.red.shade300 : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10),
           color: bColor,
           border: Border.all(color: Colors.grey.shade400),
         ),
         child: Center(
           child: Container(
-            width: 20,
-            height: 20,
+            width: 24,
+            height: 24,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: cbColor),

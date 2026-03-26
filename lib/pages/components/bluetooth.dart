@@ -17,23 +17,27 @@ Future<void> requestBluetoothPermission() async {
 final bluetoothClassicPlugin = BluetoothClassic();
 
 Future<String> connectDevices() async {
-  await bluetoothClassicPlugin.initPermissions();
-  List<Device> discoveredDevices = await bluetoothClassicPlugin
-      .getPairedDevices();
-  for (Device device in discoveredDevices) {
-    if (device.name == "board1") {
-      try {
-        await bluetoothClassicPlugin.connect(
-          device.address,
-          "00001101-0000-1000-8000-00805f9b34fb",
-        );
-        return "conncted";
-      } catch (e) {
-        return e.toString();
+  try {
+    await bluetoothClassicPlugin.initPermissions();
+    List<Device> discoveredDevices = await bluetoothClassicPlugin
+        .getPairedDevices();
+    for (Device device in discoveredDevices) {
+      if (device.name == "board1") {
+        try {
+          await bluetoothClassicPlugin.connect(
+            device.address,
+            "00001101-0000-1000-8000-00805f9b34fb",
+          );
+          return "conncted";
+        } catch (e) {
+          return e.toString();
+        }
       }
     }
+    return "prob";
+  } catch (e) {
+    return e.toString();
   }
-  return "prob";
 }
 
 void butTransfer(String message) {
