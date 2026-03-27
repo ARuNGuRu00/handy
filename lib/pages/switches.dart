@@ -110,7 +110,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
   @override
   void initState() {
     super.initState();
-    connectDevices(pairedDeviceDet[widget.bName]!);
+    connectDevices(widget.bName);
   }
 
   @override
