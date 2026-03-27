@@ -108,6 +108,12 @@ class SwitchLayout extends StatefulWidget {
 
 class _SwitchLayoutState extends State<SwitchLayout> {
   @override
+  void initState() {
+    super.initState();
+    connectDevices(pairedDeviceDet[widget.bName]!);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

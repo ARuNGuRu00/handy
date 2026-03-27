@@ -48,5 +48,5 @@ Future<bool> connectDevices(String blueName) async {
 
 void butTransfer(String message) async {
   await bluetoothClassicPlugin.sendString(message);
-  await bluetoothClassicPlugin.disconnect();
+  // await bluetoothClassicPlugin.disconnect();
 }

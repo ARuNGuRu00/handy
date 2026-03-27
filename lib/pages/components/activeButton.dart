@@ -20,13 +20,13 @@ class ActiveSwitch extends StatefulWidget {
 class _ActiveSwitchState extends State<ActiveSwitch> {
   Color bColor = const Color.fromARGB(255, 234, 233, 233);
   Color cbColor = Colors.grey;
-  void connectMethod(String message) async {
-    bool connection = await connectDevices(widget.bAddress!);
-    await Future.delayed(Duration(seconds: 1));
-    if (connection) {
-      butTransfer(message);
-    }
-  }
+  // void connectMethod(String message) async {
+  //   bool connection = await connectDevices(widget.bAddress!);
+  //   await Future.delayed(Duration(seconds: 1));
+  //   if (connection) {
+  //     butTransfer(message);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,8 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
       onTapUp: (details) {
         // print(widget.sdet);
         // butTransfer(widget.sdet.toString());
-        connectMethod(widget.swint.toString());
-        // butTransfer(widget.swint.toString());
+        // connectMethod(widget.swint.toString());
+        butTransfer(widget.swint.toString());
       },
 
       // onTapUp: (details) {},
