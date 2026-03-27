@@ -26,14 +26,27 @@ class _LiveScreenState extends State<LiveScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: "Ubuntu"),
+      theme: ThemeData(
+        fontFamily: "Ubuntu",
+        primaryColor: const Color.fromARGB(255, 249, 92, 81),
+        scaffoldBackgroundColor: const Color.fromARGB(243, 236, 235, 235),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: const Color.fromARGB(243, 236, 235, 235),
+
+          selectedItemColor: Colors.red,
+          unselectedItemColor: Colors.grey,
+          elevation: 10,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_rounded)),
-          ],
-        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           items: [
@@ -49,7 +62,6 @@ class _LiveScreenState extends State<LiveScreen> {
             });
           },
         ),
-
         body: _pages[_currentIndex],
       ),
     );

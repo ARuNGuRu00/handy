@@ -21,12 +21,13 @@ class _CatogoryState extends State<Catogory> {
     final code = await isBluetoothEnabled();
     setState(() {
       blueCode = code;
-      // blueCode = true;
+      blueCode = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final winHeight = MediaQuery.of(context).size.height;
     if (blueCode == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -58,48 +59,115 @@ class _CatogoryState extends State<Catogory> {
         ),
       );
     }
-    return SafeArea(
-      minimum: EdgeInsets.symmetric(horizontal: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Text(
-              "Handy",
-              style: TextStyle(
-                fontSize: 40,
-                fontFamily: "KaushanScript",
-                color: Color.fromRGBO(245, 81, 81, 1),
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            height: winHeight * 0.18,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.circular(60),
               ),
+              // gradient: LinearGradient(
+              //   colors: [
+              //     const Color.fromARGB(255, 255, 139, 153),
+              //     Colors.transparent,
+              //   ],
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              color: Colors.red,
+              // ),
             ),
           ),
-          SizedBox(height: 20),
-          Row(
+        ),
+        SafeArea(
+          minimum: EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 2, child: TapCard(layoutName: "Living Room")),
-              Expanded(child: TapCard(layoutName: "Parking")),
-            ],
-          ),
+              SizedBox(height: winHeight * 0.02),
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.more_vert_rounded,
+                    size: 30,
+                    color: const Color.fromARGB(255, 235, 235, 235),
+                  ),
+                ),
+              ),
+              SizedBox(height: winHeight * 0.001),
+              Padding(
+                padding: const EdgeInsets.only(left: 50),
+                child: Text(
+                  "Handy",
+                  style: TextStyle(
+                    fontSize: winHeight * 0.05,
+                    fontFamily: "KaushanScript",
+                    color: Color.fromRGBO(230, 229, 229, 1),
+                  ),
+                ),
+              ),
+              SizedBox(height: winHeight * 0.05),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: TapCard(
+                      layoutName: "Living Room",
+                      img: "asset/icons/living-room.png",
+                    ),
+                  ),
+                  Expanded(
+                    child: TapCard(
+                      layoutName: "Parking",
+                      img: "asset/icons/shed.png",
+                    ),
+                  ),
+                ],
+              ),
 
-          Row(
-            children: [
-              Expanded(child: TapCard(layoutName: "Bedroom")),
-              Expanded(child: TapCard(layoutName: "Store Room")),
+              Row(
+                children: [
+                  Expanded(
+                    child: TapCard(
+                      layoutName: "Bedroom",
+                      img: "asset/icons/hotel.png",
+                    ),
+                  ),
+                  Expanded(
+                    child: TapCard(
+                      layoutName: "Store Room",
+                      img: "asset/icons/ware-house.png",
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TapCard(
+                      layoutName: "OutDoor",
+                      img: "asset/icons/sprout.png",
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-          Row(
-            children: [Expanded(child: TapCard(layoutName: "OutDoor"))],
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
 class TapCard extends StatefulWidget {
   final String layoutName;
-  const TapCard({super.key, required this.layoutName});
+  final String img;
+  const TapCard({super.key, required this.layoutName, required this.img});
 
   @override
   State<TapCard> createState() => _TapCardState();
@@ -130,15 +198,37 @@ class _TapCardState extends State<TapCard> {
         );
       },
       child: Card(
-        color: Color.fromRGBO(219, 104, 104, _opacity),
+        color: Color.fromRGBO(219, 217, 217, _opacity),
         elevation: 0,
         child: SizedBox(
           height: (width / 2) - 36,
-          child: Center(
-            child: Text(
-              widget.layoutName,
-              style: TextStyle(fontFamily: "Ubuntu", fontSize: 18),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 22, left: 22),
+                child: ImageIcon(
+                  AssetImage(widget.img),
+                  size: width * 0.14,
+                  color: Colors.red, // optional tint
+                ),
+              ),
+              Spacer(),
+              Align(
+                alignment: AlignmentGeometry.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 24.0, bottom: 24),
+                  child: Text(
+                    widget.layoutName,
+                    style: TextStyle(
+                      fontFamily: "Ubuntu",
+                      fontSize: 18,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
