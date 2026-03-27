@@ -90,14 +90,11 @@ class _CatogoryState extends State<Catogory> {
               SizedBox(height: winHeight * 0.02),
               Align(
                 alignment: Alignment.topRight,
-                child: PopupMenuButton(
-                  icon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.more_vert_rounded,
-                      size: 30,
-                      color: const Color.fromARGB(255, 235, 235, 235),
-                    ),
+                child: PopupMenuButton<String>(
+                  icon: Icon(
+                    Icons.more_vert_rounded,
+                    size: 30,
+                    color: const Color.fromARGB(255, 235, 235, 235),
                   ),
                   onSelected: (value) {
                     if (value == "about") {
@@ -125,7 +122,7 @@ class _CatogoryState extends State<Catogory> {
                       value: "Add",
                       child: Row(
                         children: [
-                          Icon(Icons.settings),
+                          Icon(Icons.layers_outlined),
                           SizedBox(width: 10),
                           Text("Add Layout"),
                         ],
