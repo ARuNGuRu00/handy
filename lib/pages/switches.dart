@@ -171,7 +171,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                               opacity: 0.5,
                               child: IgnorePointer(
                                 child: ActiveSwitch(
-                                  swint: index,
+                                  swint: index + 1,
                                   state: 1,
                                   bAddress: pairedDeviceDet[widget.bName],
                                 ),
@@ -183,14 +183,14 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                               opacity: 0.5,
                               child: IgnorePointer(
                                 child: ActiveSwitch(
-                                  swint: index,
+                                  swint: index + 1,
                                   state: 2,
                                   bAddress: pairedDeviceDet[widget.bName],
                                 ),
                               ),
                             )
                           : ActiveSwitch(
-                              swint: index,
+                              swint: index + 1,
                               state: 0,
                               bAddress: pairedDeviceDet[widget.bName],
                             ),

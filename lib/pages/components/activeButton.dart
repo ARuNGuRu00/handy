@@ -42,12 +42,14 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
           cbColor = Colors.grey;
         });
       },
-      onTapUp: (details) {
-        // print(widget.sdet);
-        // butTransfer(widget.sdet.toString());
-        // connectMethod(widget.swint.toString());
+      onTap: () {
         butTransfer(widget.swint.toString());
       },
+      // onTapUp: (details) {
+      //   // print(widget.sdet);
+      //   // butTransfer(widget.sdet.toString());
+      //   // connectMethod(widget.swint.toString());
+      // },
 
       // onTapUp: (details) {},
       child: Container(
