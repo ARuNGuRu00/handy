@@ -90,13 +90,48 @@ class _CatogoryState extends State<Catogory> {
               SizedBox(height: winHeight * 0.02),
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.more_vert_rounded,
-                    size: 30,
-                    color: const Color.fromARGB(255, 235, 235, 235),
+                child: PopupMenuButton(
+                  icon: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.more_vert_rounded,
+                      size: 30,
+                      color: const Color.fromARGB(255, 235, 235, 235),
+                    ),
                   ),
+                  onSelected: (value) {
+                    if (value == "about") {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Need Product ID to Make layout"),
+                          content: Text("XXX-XXX-XXX-XXX"),
+                        ),
+                      );
+                    } else if (value == "Edit") {}
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: "Edit",
+                      child: Row(
+                        children: [
+                          Icon(Icons.edit),
+                          SizedBox(width: 10),
+                          Text("Edit Layout"),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: "Add",
+                      child: Row(
+                        children: [
+                          Icon(Icons.settings),
+                          SizedBox(width: 10),
+                          Text("Add Layout"),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: winHeight * 0.001),
