@@ -121,8 +121,8 @@ class _SwitchLayoutState extends State<SwitchLayout> {
             left: 15,
           ),
           child: Text(
-            pairedDeviceDet[widget.bName]!.toString(),
-            // 'Board ${widget.bCount}',
+            // pairedDeviceDet[widget.bName]!.toString(),
+            'Board ${widget.bCount}',
             style: TextStyle(color: const Color.fromARGB(255, 150, 149, 149)),
           ),
         ),

@@ -22,6 +22,7 @@ class _ActiveSwitchState extends State<ActiveSwitch> {
   Color cbColor = Colors.grey;
   void connectMethod(String message) async {
     bool connection = await connectDevices(widget.bAddress!);
+    await Future.delayed(Duration(seconds: 1));
     if (connection) {
       butTransfer(message);
     }
