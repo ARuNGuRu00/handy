@@ -15,6 +15,7 @@ class Switches extends StatefulWidget {
 class _SwitchesState extends State<Switches> {
   late final Map<dynamic, dynamic>? det;
   late final List? entries;
+  late final bool isPaired;
   // late String mess;
   @override
   void initState() {
@@ -22,17 +23,17 @@ class _SwitchesState extends State<Switches> {
     det = CompD().layout[widget.title.toLowerCase()];
     entries = det?.entries.toList();
     // print(entries?.elementAt(0));
-    pairedDevice();
+    getPairedDevices();
     // messageCall();
   }
 
-  // void messageCall() async {
-  //   final messageTemp = await connectDevices();
+  void getPairedDevices() async {
+    final bool getmess = await pairedDevice();
 
-  //   setState(() {
-  //     mess = messageTemp;
-  //   });
-  // }
+    setState(() {
+      isPaired = getmess;
+    });
+  }
 
   @override
   void dispose() {
@@ -53,21 +54,23 @@ class _SwitchesState extends State<Switches> {
         title: Text(widget.title),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.edit))],
       ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: entries?.length,
-          itemBuilder: (context, index) => SwitchLayout(
-            bName: entries?.elementAt(index).key,
-            count: (entries?.elementAt(index).value is List)
-                ? entries?.elementAt(index).value[0]
-                : entries?.elementAt(index).value,
-            other: (entries?.elementAt(index).value is List)
-                ? entries?.elementAt(index).value
-                : [],
-            bCount: index + 1,
-          ),
-        ),
-      ),
+      body: isPaired
+          ? SafeArea(
+              child: ListView.builder(
+                itemCount: entries?.length,
+                itemBuilder: (context, index) => SwitchLayout(
+                  bName: entries?.elementAt(index).key,
+                  count: (entries?.elementAt(index).value is List)
+                      ? entries?.elementAt(index).value[0]
+                      : entries?.elementAt(index).value,
+                  other: (entries?.elementAt(index).value is List)
+                      ? entries?.elementAt(index).value
+                      : [],
+                  bCount: index + 1,
+                ),
+              ),
+            )
+          : CircularProgressIndicator(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -189,7 +192,7 @@ class _SwitchLayoutState extends State<SwitchLayout> {
                 ),
               ),
             ),
-            if (pairedDeviceDet.containsKey(widget.bName))
+            if (!pairedDeviceDet.containsKey(widget.bName))
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(

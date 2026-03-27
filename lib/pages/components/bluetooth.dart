@@ -25,10 +25,15 @@ Future<bool> isBluetoothEnabled() async {
 
 List<BluetoothDevice> pairedDevices = [];
 Map<String, String> pairedDeviceDet = {};
-void pairedDevice() async {
-  pairedDevices = await bluetoothClassicPlugin.getPairedDevices();
-  for (BluetoothDevice device in pairedDevices) {
-    pairedDeviceDet[device.name] = device.address;
+Future<bool> pairedDevice() async {
+  try {
+    pairedDevices = await bluetoothClassicPlugin.getPairedDevices();
+    for (BluetoothDevice device in pairedDevices) {
+      pairedDeviceDet[device.name] = device.address;
+    }
+    return true;
+  } catch (e) {
+    return false;
   }
 }
 
