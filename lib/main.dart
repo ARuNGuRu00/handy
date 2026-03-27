@@ -29,7 +29,7 @@ class _LiveScreenState extends State<LiveScreen> {
       theme: ThemeData(
         fontFamily: "Ubuntu",
         primaryColor: const Color.fromARGB(255, 249, 92, 81),
-        scaffoldBackgroundColor: const Color.fromARGB(243, 236, 235, 235),
+        scaffoldBackgroundColor: const Color.fromARGB(243, 245, 245, 245),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
@@ -38,7 +38,7 @@ class _LiveScreenState extends State<LiveScreen> {
         ),
 
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: const Color.fromARGB(243, 236, 235, 235),
+          backgroundColor: const Color.fromARGB(243, 245, 245, 245),
 
           selectedItemColor: Colors.red,
           unselectedItemColor: Colors.grey,

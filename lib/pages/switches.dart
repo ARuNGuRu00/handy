@@ -70,7 +70,7 @@ class _SwitchesState extends State<Switches> {
                 ),
               ),
             )
-          : CircularProgressIndicator(),
+          : Center(child: CircularProgressIndicator()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -78,8 +78,10 @@ class _SwitchesState extends State<Switches> {
             MaterialPageRoute(builder: (context) => Soundpage()),
           );
         },
-        shape: CircleBorder(),
-        elevation: 0,
+        foregroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 222, 221, 221),
+        // shape: BeveledRectangleBorder(),
+        // elevation: 0,
         // backgroundColor: Color.fromRGBO(250, 116, 116, 1),
         // foregroundColor: Color.fromRGBO(159, 5, 5, 1),
         child: const Icon(Icons.music_note),

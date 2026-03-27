@@ -64,7 +64,7 @@ class _CatogoryState extends State<Catogory> {
         Align(
           alignment: Alignment.topCenter,
           child: Container(
-            height: winHeight * 0.18,
+            height: winHeight * 0.21,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(60),
